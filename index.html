@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>CRUNCH - Your Notes</title>
+
+    <link rel="icon" type="image/png" href="c.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <!-- CRUNCH SIGNATURE LOADING -->
+<div id="loading-screen">
+    <div class="loader-content">
+
+        <div class="loading-logo">
+            <img src="c.png" alt="CRUNCH">
+        </div>
+
+        <h1>CRUNCH</h1>
+
+        <p class="loading-tagline">
+            YOUR IDEAS YOUR SPACE
+        </p>
+
+        <div class="loading-bar">
+            <div id="loading-progress"></div>
+        </div>
+
+        <span id="loading-percent">0%</span>
+
+        <div class="loading-credit">
+            DESIGNED & DEVELOPED BY
+            <strong>YOGI PRATAMA</strong>
+        </div>
+
+    </div>
+</div>
+    <!-- MAIN APPLICATION -->
+    <div id="app" class="hidden">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand">
+                <img src="c.png" alt="CRUNCH">
+                <span>CRUNCH</span>
+            </div>
+
+            <button class="mobile-menu" id="mobile-menu">☰</button>
+
+            <div class="search-box">
+                <span>⌕</span>
+                <input type="text" id="search-input"
+                    placeholder="Cari catatan...">
+            </div>
+
+            <div class="header-actions">
+                <button id="view-toggle" title="Ubah tampilan">▦</button>
+                <button id="refresh-btn" title="Muat ulang">↻</button>
+            </div>
+        </header>
+
+        <div class="layout">
+
+            <!-- SIDEBAR -->
+            <aside class="sidebar" id="sidebar">
+
+                <button class="sidebar-item active" data-page="notes">
+                    <span>▤</span> Catatan
+                </button>
+
+                <button class="sidebar-item" data-page="reminders">
+                    <span>◷</span> Pengingat
+                </button>
+
+                <button class="sidebar-item" data-page="archive">
+                    <span>▣</span> Arsip
+                </button>
+
+                <button class="sidebar-item" data-page="trash">
+                    <span>♲</span> Sampah
+                </button>
+
+                <div class="sidebar-footer">
+                    <div class="brand-small">CRUNCH</div>
+                    <p>Your ideas Your space</p>
+                    <span>Version 1.0</span>
+                </div>
+            </aside>
+
+            <!-- CONTENT -->
+            <main class="main-content">
+
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">PERSONAL WORKSPACE</span>
+                        <h2 id="page-title">Catatan</h2>
+                        <p id="page-description">
+                            Semua ide dan pikiranmu, tersimpan di sini.
+                        </p>
+                    </div>
+
+                    <span class="note-count" id="note-count">0 Catatan</span>
+                </div>
+
+                <!-- NOTE FORM -->
+                <section class="note-creator" id="note-creator">
+                    <input type="text" id="note-title"
+                        placeholder="Judul catatan">
+
+                    <textarea id="note-content"
+                        placeholder="Tulis sesuatu..."></textarea>
+
+                    <div class="creator-footer">
+                        <div class="creator-tools">
+                            <button id="checklist-toggle"
+                                title="Buat checklist">☑</button>
+                            <button id="color-toggle"
+                                title="Pilih warna">◉</button>
+                            <button id="pin-toggle"
+                                title="Sematkan catatan">📌</button>
+                        </div>
+
+                        <button class="save-btn" id="save-note">
+                            Simpan
+                        </button>
+                    </div>
+
+                    <div class="color-options hidden" id="color-options">
+                        <button data-color="#ffffff" style="background:#ffffff"></button>
+                        <button data-color="#fff1c7" style="background:#fff1c7"></button>
+                        <button data-color="#f8d7da" style="background:#f8d7da"></button>
+                        <button data-color="#dceeff" style="background:#dceeff"></button>
+                        <button data-color="#dff3e4" style="background:#dff3e4"></button>
+                        <button data-color="#eadfff" style="background:#eadfff"></button>
+                    </div>
+                </section>
+
+                <!-- NOTES -->
+                <div class="notes-grid" id="notes-grid"></div>
+
+                <div class="empty-state hidden" id="empty-state">
+                    <div class="empty-icon">▤</div>
+                    <h3>Belum ada catatan</h3>
+                    <p>Mulai tulis ide pertamamu di CRUNCH.</p>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- TOAST -->
+        <div class="toast" id="toast"></div>
+
+        <!-- EDIT MODAL -->
+        <div class="modal hidden" id="edit-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Edit Catatan</h3>
+                    <button id="close-modal">✕</button>
+                </div>
+
+                <input type="text" id="edit-title"
+                    placeholder="Judul catatan">
+
+                <textarea id="edit-content"
+                    placeholder="Isi catatan..."></textarea>
+
+                <div class="modal-footer">
+                    <button class="save-btn" id="update-note">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
