@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#faf5f1">
+    <meta name="description" content="CRUNCH - Your Ideas Your Space">
     <title>CRUNCH - Your Notes</title>
 
     <link rel="icon" type="image/png" href="c.png">
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-   <!-- CRUNCH SIGNATURE LOADING -->
+<!-- LOADING SCREEN -->
 <div id="loading-screen">
     <div class="loader-content">
-
         <div class="loading-logo">
             <img src="c.png" alt="CRUNCH">
         </div>
 
         <h1>CRUNCH</h1>
-
-        <p class="loading-tagline">
-            YOUR IDEAS YOUR SPACE
-        </p>
+        <p class="loading-tagline">YOUR IDEAS YOUR SPACE</p>
 
         <div class="loading-bar">
             <div id="loading-progress"></div>
@@ -35,148 +38,347 @@
             DESIGNED & DEVELOPED BY
             <strong>YOGI PRATAMA</strong>
         </div>
-
     </div>
 </div>
-    <!-- MAIN APPLICATION -->
-    <div id="app" class="hidden">
 
-        <!-- HEADER -->
-        <header class="header">
-            <div class="brand">
-                <img src="c.png" alt="CRUNCH">
-                <span>CRUNCH</span>
-            </div>
+<!-- APPLICATION -->
+<div id="app" class="hidden">
 
-            <button class="mobile-menu" id="mobile-menu">☰</button>
+    <!-- HEADER -->
+    <header class="header">
 
-            <div class="search-box">
-                <span>⌕</span>
-                <input type="text" id="search-input"
-                    placeholder="Cari catatan...">
-            </div>
+        <button class="mobile-menu icon-button" id="mobile-menu" aria-label="Buka menu">
+            <i data-lucide="menu"></i>
+        </button>
 
-            <div class="header-actions">
-                <button id="view-toggle" title="Ubah tampilan">▦</button>
-                <button id="refresh-btn" title="Muat ulang">↻</button>
-            </div>
-        </header>
+        <a href="#" class="brand">
+            <img src="c.png" alt="CRUNCH">
+            <span>CRUNCH</span>
+        </a>
 
-        <div class="layout">
+        <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-input" placeholder="Telusuri catatan...">
+            <button id="clear-search" class="clear-search hidden" aria-label="Hapus pencarian">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
 
-            <!-- SIDEBAR -->
-            <aside class="sidebar" id="sidebar">
+        <div class="header-actions">
+            <button id="view-toggle" class="icon-button" title="Ubah tampilan">
+                <i data-lucide="layout-grid"></i>
+            </button>
+
+            <button id="refresh-btn" class="icon-button" title="Muat ulang">
+                <i data-lucide="refresh-cw"></i>
+            </button>
+        </div>
+
+    </header>
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="sidebar-navigation">
 
                 <button class="sidebar-item active" data-page="notes">
-                    <span>▤</span> Catatan
+                    <i data-lucide="lightbulb"></i>
+                    <span>Catatan</span>
                 </button>
 
                 <button class="sidebar-item" data-page="reminders">
-                    <span>◷</span> Pengingat
+                    <i data-lucide="bell"></i>
+                    <span>Pengingat</span>
+                    <span class="menu-count hidden" id="reminder-count">0</span>
                 </button>
 
+            </div>
+
+            <div class="sidebar-section">
+
+                <div class="sidebar-section-heading">
+                    <span>LABEL</span>
+                    <button id="add-label" title="Buat label">
+                        <i data-lucide="plus"></i>
+                    </button>
+                </div>
+
+                <div id="label-list"></div>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
                 <button class="sidebar-item" data-page="archive">
-                    <span>▣</span> Arsip
+                    <i data-lucide="archive"></i>
+                    <span>Arsip</span>
                 </button>
 
                 <button class="sidebar-item" data-page="trash">
-                    <span>♲</span> Sampah
+                    <i data-lucide="trash-2"></i>
+                    <span>Sampah</span>
                 </button>
 
-                <div class="sidebar-footer">
-                    <div class="brand-small">CRUNCH</div>
-                    <p>Your ideas Your space</p>
-                    <span>Version 1.0</span>
+                <button class="sidebar-item" data-page="settings">
+                    <i data-lucide="settings"></i>
+                    <span>Setelan</span>
+                </button>
+
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="footer-brand">
+                    <span>CRUNCH</span>
+                    <span class="version">2.0</span>
                 </div>
-            </aside>
+                <p>Your ideas, your space.</p>
+                <small>Designed & Developed by Yogi</small>
+            </div>
 
-            <!-- CONTENT -->
-            <main class="main-content">
+        </aside>
 
-                <div class="page-heading">
-                    <div>
-                        <span class="eyebrow">PERSONAL WORKSPACE</span>
-                        <h2 id="page-title">Catatan</h2>
-                        <p id="page-description">
-                            Semua ide dan pikiranmu, tersimpan di sini.
-                        </p>
-                    </div>
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
 
-                    <span class="note-count" id="note-count">0 Catatan</span>
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">PERSONAL WORKSPACE</span>
+                    <h2 id="page-title">Catatan</h2>
+                    <p id="page-description">
+                        Semua ide dan pikiranmu, tersimpan di sini.
+                    </p>
                 </div>
 
-                <!-- NOTE FORM -->
-                <section class="note-creator" id="note-creator">
+                <span class="note-count" id="note-count">0 Catatan</span>
+            </div>
+
+            <!-- NOTE CREATOR -->
+            <section class="note-creator hidden" id="note-creator">
+
+                <div class="creator-top">
                     <input type="text" id="note-title"
                         placeholder="Judul catatan">
 
-                    <textarea id="note-content"
-                        placeholder="Tulis sesuatu..."></textarea>
-
-                    <div class="creator-footer">
-                        <div class="creator-tools">
-                            <button id="checklist-toggle"
-                                title="Buat checklist">☑</button>
-                            <button id="color-toggle"
-                                title="Pilih warna">◉</button>
-                            <button id="pin-toggle"
-                                title="Sematkan catatan">📌</button>
-                        </div>
-
-                        <button class="save-btn" id="save-note">
-                            Simpan
-                        </button>
-                    </div>
-
-                    <div class="color-options hidden" id="color-options">
-                        <button data-color="#ffffff" style="background:#ffffff"></button>
-                        <button data-color="#fff1c7" style="background:#fff1c7"></button>
-                        <button data-color="#f8d7da" style="background:#f8d7da"></button>
-                        <button data-color="#dceeff" style="background:#dceeff"></button>
-                        <button data-color="#dff3e4" style="background:#dff3e4"></button>
-                        <button data-color="#eadfff" style="background:#eadfff"></button>
-                    </div>
-                </section>
-
-                <!-- NOTES -->
-                <div class="notes-grid" id="notes-grid"></div>
-
-                <div class="empty-state hidden" id="empty-state">
-                    <div class="empty-icon">▤</div>
-                    <h3>Belum ada catatan</h3>
-                    <p>Mulai tulis ide pertamamu di CRUNCH.</p>
-                </div>
-
-            </main>
-        </div>
-
-        <!-- TOAST -->
-        <div class="toast" id="toast"></div>
-
-        <!-- EDIT MODAL -->
-        <div class="modal hidden" id="edit-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Edit Catatan</h3>
-                    <button id="close-modal">✕</button>
-                </div>
-
-                <input type="text" id="edit-title"
-                    placeholder="Judul catatan">
-
-                <textarea id="edit-content"
-                    placeholder="Isi catatan..."></textarea>
-
-                <div class="modal-footer">
-                    <button class="save-btn" id="update-note">
-                        Simpan Perubahan
+                    <button id="close-creator" class="icon-button" title="Tutup">
+                        <i data-lucide="x"></i>
                     </button>
                 </div>
+
+                <textarea id="note-content"
+                    placeholder="Tulis sesuatu..."></textarea>
+
+                <div id="checklist-editor" class="checklist-editor hidden">
+                    <div id="checklist-inputs"></div>
+                    <button id="add-check-item" class="add-check-item">
+                        <i data-lucide="plus"></i>
+                        Tambahkan item
+                    </button>
+                </div>
+
+                <div class="creator-extra">
+
+                    <div class="extra-field">
+                        <label for="note-label">
+                            <i data-lucide="tag"></i> Label
+                        </label>
+                        <select id="note-label">
+                            <option value="">Tanpa label</option>
+                        </select>
+                    </div>
+
+                    <div class="extra-field">
+                        <label for="note-reminder">
+                            <i data-lucide="bell"></i> Pengingat
+                        </label>
+                        <input type="datetime-local" id="note-reminder">
+                    </div>
+
+                </div>
+
+                <div class="creator-footer">
+
+                    <div class="creator-tools">
+
+                        <button id="checklist-toggle" title="Checklist">
+                            <i data-lucide="list-checks"></i>
+                        </button>
+
+                        <button id="color-toggle" title="Warna">
+                            <i data-lucide="palette"></i>
+                        </button>
+
+                        <button id="pin-toggle" title="Sematkan">
+                            <i data-lucide="pin"></i>
+                        </button>
+
+                    </div>
+
+                    <button class="save-btn" id="save-note">
+                        Simpan
+                    </button>
+
+                </div>
+
+                <div class="color-options hidden" id="color-options">
+                    <button data-color="#ffffff" style="background:#ffffff" title="Putih"></button>
+                    <button data-color="#fff1c7" style="background:#fff1c7" title="Kuning"></button>
+                    <button data-color="#f8d7da" style="background:#f8d7da" title="Merah muda"></button>
+                    <button data-color="#dceeff" style="background:#dceeff" title="Biru"></button>
+                    <button data-color="#dff3e4" style="background:#dff3e4" title="Hijau"></button>
+                    <button data-color="#eadfff" style="background:#eadfff" title="Ungu"></button>
+                </div>
+
+            </section>
+
+            <!-- LABEL FILTER -->
+            <div id="active-label-info" class="active-label-info hidden"></div>
+
+            <!-- NOTES GRID -->
+            <div class="notes-grid" id="notes-grid"></div>
+
+            <!-- EMPTY STATE -->
+            <div class="empty-state hidden" id="empty-state">
+                <div class="empty-icon">
+                    <i data-lucide="notebook-pen"></i>
+                </div>
+                <h3>Belum ada catatan</h3>
+                <p>Mulai tulis ide pertamamu di CRUNCH.</p>
             </div>
-        </div>
+
+        </main>
 
     </div>
 
-    <script src="script.js"></script>
+    <!-- FLOATING ADD BUTTON -->
+    <div class="floating-area" id="floating-area">
+
+        <div class="floating-menu hidden" id="floating-menu">
+
+            <button data-create="text">
+                <span class="floating-menu-icon">
+                    <i data-lucide="type"></i>
+                </span>
+                Teks
+            </button>
+
+            <button data-create="checklist">
+                <span class="floating-menu-icon">
+                    <i data-lucide="list-checks"></i>
+                </span>
+                Daftar
+            </button>
+
+        </div>
+
+        <button class="floating-button" id="floating-button" aria-label="Tambah catatan">
+            <i data-lucide="plus"></i>
+        </button>
+
+    </div>
+
+    <!-- LABEL MODAL -->
+    <div class="modal hidden" id="label-modal">
+        <div class="modal-content small-modal">
+
+            <div class="modal-header">
+                <h3>Buat label baru</h3>
+                <button class="icon-button" id="close-label-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="text" id="label-name" placeholder="Nama label">
+
+            <div class="modal-footer">
+                <button class="save-btn" id="save-label">Buat Label</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal hidden" id="edit-modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>Edit Catatan</h3>
+                <button class="icon-button" id="close-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="text" id="edit-title" placeholder="Judul catatan">
+            <textarea id="edit-content" placeholder="Isi catatan..."></textarea>
+
+            <div class="creator-extra">
+                <div class="extra-field">
+                    <label for="edit-label">Label</label>
+                    <select id="edit-label">
+                        <option value="">Tanpa label</option>
+                    </select>
+                </div>
+
+                <div class="extra-field">
+                    <label for="edit-reminder">Pengingat</label>
+                    <input type="datetime-local" id="edit-reminder">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="save-btn" id="update-note">
+                    Simpan Perubahan
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div class="modal hidden" id="settings-modal">
+        <div class="modal-content small-modal">
+
+            <div class="modal-header">
+                <h3>Setelan CRUNCH</h3>
+                <button class="icon-button" id="close-settings">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="settings-info">
+                <div class="settings-logo">
+                    <img src="c.png" alt="CRUNCH">
+                </div>
+                <h3>CRUNCH 2.0</h3>
+                <p>Your Ideas Your Space</p>
+                <small>Designed & Developed by Yogi Pratama</small>
+            </div>
+
+            <div class="settings-actions">
+                <button id="export-notes">
+                    <i data-lucide="download"></i>
+                    Ekspor data catatan
+                </button>
+
+                <button id="import-trigger">
+                    <i data-lucide="upload"></i>
+                    Impor data catatan
+                </button>
+
+                <input type="file" id="import-file" accept=".json" hidden>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
